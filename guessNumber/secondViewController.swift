@@ -1,13 +1,13 @@
 //
-//  ViewController.swift
+//  secondViewController.swift
 //  guessNumber
 //
-//  Created by 楊昕蕾 on 2021/9/16.
+//  Created by 楊昕蕾 on 2021/9/18.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class secondViewController: UIViewController {
     
     @IBOutlet weak var chanceLbl: UILabel!
     
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     var answer = [0, 0, 0, 0]
     var guess = [0, 0, 0, 0]
-    var chances = 8
+    var chances = 10
     var a = 0
     var b = 0
     var round = 0
@@ -28,24 +28,24 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         numbers.shuffle()
-   
+        
     }
- 
+
     @IBAction func input(_ sender: UIButton) {
         
         if guessNum.text!.count < 4 && guessNum.text!.contains(String(sender.tag)) != true{
             guessNum.text! += String(sender.tag)
-            
         }
+
     }
-         
+        
     
     @IBAction func guessBtn(_ sender: UIButton) {
         
         if guessNum.text!.count == 4 && gameOver == false{
-                    
+            
             round += 1
             chances -= 1
             chanceLbl.text = "残り\(chances)回"
@@ -83,13 +83,14 @@ class ViewController: UIViewController {
     
     func showResult(){
         let guessNumbers = String(guessNum.text!)
-        if round <= 4{
+        if round <= 5{
             resultTextView0.text = resultTextView0.text + guessNumbers + "　　\(a)A\(b)B\n"
         }
         else {
             resultTextView1.text = resultTextView1.text + guessNumbers + "　　\(a)A\(b)B\n"
         }
         
+
     }
     
     func gamePlay(){
@@ -107,34 +108,34 @@ class ViewController: UIViewController {
                 gameOverHint()
                 gameOver = true
             }
-           
         }
+
     }
     
-   
+    
+    
     @IBAction func cancel(_ sender: Any) {
         
         if guessNum.text != ""{
-            guessNum.text!.removeLast()
+            guessNum.text?.removeLast()
         }
         
     }
     
-        
     
     @IBAction func restartBtn(_ sender: Any) {
         numbers.shuffle()
         guessNum.text = ""
         gameOver = false
         round = 0
-        chances = 8
+        chances = 10
         chanceLbl.text = "残り\(chances)回"
         resultTextView0.text = ""
         resultTextView1.text = ""
-   
+        
     }
     
-
+    
     func gameOverHint(){
         let alerController = UIAlertController(
             title: "GAME OVER",
@@ -197,5 +198,4 @@ class ViewController: UIViewController {
             completion: nil)
 
     }
-
 }
